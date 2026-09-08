@@ -234,11 +234,140 @@ h3,
   color: var(--muted);
 }
 
+/* Date strip — problemstatement.md §5 */
+
+.date-strip {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--space-1);
+  margin: var(--space-2) 0 var(--space-5);
+}
+
+.date-strip-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  flex: 1;
+  padding: var(--space-2) 0;
+  border-radius: var(--radius-md);
+  color: var(--muted);
+}
+
+.date-strip-day-active {
+  background: var(--lavender);
+  color: var(--foreground);
+}
+
+.date-strip-weekday {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+}
+
+.date-strip-number {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+/* Today's progress — problemstatement.md §6 */
+
+.today-progress {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: var(--space-4);
+  margin-bottom: var(--space-5);
+}
+
+.today-progress-title {
+  margin: 0 0 2px;
+}
+
+.progress-ring {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.progress-ring-fill {
+  transition: stroke-dashoffset 0.4s ease;
+}
+
+.progress-ring-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.progress-ring-label {
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.progress-ring-sublabel {
+  font-size: 0.7rem;
+  color: var(--muted);
+}
+
+/* Streak badge */
+
+.streak-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--foreground);
+}
+
+/* Bottom sheet — problemstatement.md §8, §27 */
+
+.sheet-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: rgba(17, 17, 17, 0.35);
+  z-index: 20;
+}
+
+.sheet {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  background: var(--background);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding: var(--space-6) var(--space-4) var(--space-8);
+  box-shadow: 0 -12px 32px rgba(17, 17, 17, 0.12);
+}
+
+.sheet-close {
+  position: absolute;
+  top: var(--space-3);
+  right: var(--space-3);
+  width: 36px;
+  height: 36px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--card);
+  border: 1px solid var(--border);
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
 .add-habit-form {
   display: flex;
   flex-direction: column;
   gap: 6px;
-  margin-bottom: 28px;
 }
 
 .add-habit-form label {
@@ -257,7 +386,7 @@ h3,
   min-height: 44px;
   padding: 0 12px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   font-size: 1rem;
   background: var(--surface);
   color: var(--text);
@@ -268,11 +397,11 @@ h3,
   min-width: 44px;
   padding: 0 18px;
   border: none;
-  border-radius: 8px;
+  border-radius: var(--radius-sm);
   background: var(--accent);
-  color: #fff;
+  color: var(--foreground);
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: 700;
   cursor: pointer;
 }
 
@@ -294,44 +423,69 @@ h3,
   gap: 8px;
 }
 
-.habit-row {
+.habit-card {
   display: flex;
   align-items: center;
-  gap: 8px;
-  background: var(--surface);
+  gap: var(--space-3);
+  background: var(--card);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
+  padding: var(--space-3);
 }
 
-.habit-check {
-  flex: 1;
+.habit-check-control {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
   display: flex;
   align-items: center;
-  gap: 10px;
-  min-height: 44px;
-  padding: 8px 12px;
-  border: none;
+  justify-content: center;
+  border: 2px solid var(--border);
+  border-radius: var(--radius-pill);
   background: transparent;
-  text-align: left;
-  font-size: 1rem;
+  color: transparent;
+  font-size: 1.1rem;
+  font-weight: 800;
   cursor: pointer;
-  border-radius: 8px 0 0 8px;
+  transition:
+    transform 0.15s ease,
+    background 0.15s ease,
+    border-color 0.15s ease;
 }
 
-.habit-check-icon {
-  width: 20px;
-  flex-shrink: 0;
-  color: var(--accent);
-  font-weight: 700;
+.habit-check-control:active {
+  transform: scale(0.92);
+}
+
+.habit-check-control-done {
+  border-color: var(--primary);
+  background: var(--primary);
+  color: var(--foreground);
+}
+
+.habit-card-body {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.habit-card-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
 }
 
 .habit-name {
   color: var(--text);
+  font-weight: 600;
 }
 
 .habit-name-done {
   color: var(--text-muted);
   text-decoration: line-through;
+  font-weight: 500;
 }
 
 .habit-delete {
@@ -344,7 +498,7 @@ h3,
   font-size: 1.3rem;
   line-height: 1;
   cursor: pointer;
-  border-radius: 0 8px 8px 0;
+  border-radius: var(--radius-sm);
 }
 
 .habit-delete:hover {

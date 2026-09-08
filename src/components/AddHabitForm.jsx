@@ -25,6 +25,7 @@ export default function AddHabitForm({ onAddHabit }) {
           maxLength={MAX_LENGTH}
           placeholder="e.g. Drink a glass of water"
           autoComplete="off"
+          autoFocus
         />
         <button type="submit">Add</button>
       </div>

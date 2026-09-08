@@ -1,4 +1,4 @@
-import HabitRow from "./HabitRow.jsx";
+import HabitCard from "./HabitCard.jsx";
 
 export default function HabitList({ habits, onToggleToday, onDelete }) {
   if (habits.length === 0) {
@@ -8,7 +8,7 @@ export default function HabitList({ habits, onToggleToday, onDelete }) {
   return (
     <ul className="habit-list">
       {habits.map((habit) => (
-        <HabitRow
+        <HabitCard
           key={habit.id}
           habit={habit}
           onToggleToday={onToggleToday}

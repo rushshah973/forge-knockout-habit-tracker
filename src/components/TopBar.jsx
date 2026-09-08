@@ -1,4 +1,4 @@
-export default function TopBar() {
+export default function TopBar({ streak = 0 }) {
   return (
     <header className="top-bar">
       <div className="top-bar-greeting">
@@ -7,7 +7,7 @@ export default function TopBar() {
       </div>
       <div className="top-bar-streak" aria-label="Current streak">
         <span aria-hidden="true">🔥</span>
-        <span className="top-bar-streak-count">0</span>
+        <span className="top-bar-streak-count">{streak}</span>
       </div>
     </header>
   );

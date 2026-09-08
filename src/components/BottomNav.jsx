@@ -28,7 +28,7 @@ function NavButton({ item }) {
   );
 }
 
-export default function BottomNav() {
+export default function BottomNav({ onAddClick }) {
   return (
     <nav className="bottom-nav" aria-label="Primary">
       <div className="bottom-nav-items">
@@ -42,8 +42,7 @@ export default function BottomNav() {
           type="button"
           className="bottom-nav-add"
           aria-label="Add a habit"
-          disabled
-          title="Add a habit — coming soon"
+          onClick={onAddClick}
         >
           +
         </button>
