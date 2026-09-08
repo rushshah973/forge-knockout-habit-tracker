@@ -1382,3 +1382,124 @@ a:focus-visible {
 .crew-note {
   margin: 0;
 }
+
+/* Statistics & charts — dataviz skill: thin marks, rounded data-ends,
+   single hue for magnitude, direct labels so identity never depends on
+   color alone (the pastel palette fails strict CVD-separation checks). */
+
+.stat-tiles {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: var(--space-3);
+  margin-bottom: var(--space-5);
+}
+
+.stats-section-title {
+  margin: 0 0 var(--space-3);
+}
+
+.stats-card {
+  padding: var(--space-4);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  margin-bottom: var(--space-5);
+}
+
+.bar-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--space-2);
+  height: 140px;
+}
+
+.bar-chart-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  flex: 1;
+  height: 100%;
+}
+
+.bar-chart-value {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
+
+.bar-chart-track {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.bar-chart-bar {
+  width: 60%;
+  min-width: 8px;
+  background: var(--primary);
+  border-radius: 4px 4px 0 0;
+  transition: height 0.4s ease;
+}
+
+.bar-chart-bar-today {
+  outline: 2px solid var(--foreground);
+  outline-offset: 1px;
+}
+
+.bar-chart-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.compare-chart {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.compare-row {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) minmax(60px, 2fr) auto;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.compare-row-icon {
+  font-size: 1rem;
+}
+
+.compare-row-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--foreground);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.compare-row-track {
+  height: 12px;
+  border-radius: var(--radius-pill);
+  background: var(--border);
+  overflow: hidden;
+}
+
+.compare-row-bar {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--habit-accent, var(--primary));
+  border: 1px solid color-mix(in srgb, var(--habit-accent, var(--primary)) 60%, var(--foreground));
+  transition: width 0.4s ease;
+}
+
+.compare-row-value {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--foreground);
+}
