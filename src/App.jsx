@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import AppShell from "./components/AppShell.jsx";
 import AddHabitForm from "./components/AddHabitForm.jsx";
 import HabitList from "./components/HabitList.jsx";
 import { loadHabits, saveHabits } from "./lib/storage.js";
@@ -42,14 +43,13 @@ export default function App() {
   }
 
   return (
-    <main className="app">
-      <h1>Today</h1>
+    <AppShell>
       <AddHabitForm onAddHabit={handleAddHabit} />
       <HabitList
         habits={habits}
         onToggleToday={handleToggleToday}
         onDelete={handleDelete}
       />
-    </main>
+    </AppShell>
   );
 }

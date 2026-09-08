@@ -61,10 +61,135 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-.app {
-  max-width: 480px;
+/* App shell — problemstatement.md §4, §10, §29, §30 */
+
+.app-shell {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.top-bar {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--space-4);
+  max-width: 640px;
+  width: 100%;
   margin: 0 auto;
-  padding: 24px 16px 64px;
+  padding: var(--space-6) var(--space-4) var(--space-2);
+}
+
+.top-bar-eyebrow {
+  margin: 0 0 var(--space-1);
+}
+
+.top-bar-title {
+  margin: 0;
+}
+
+.top-bar-streak {
+  display: flex;
+  align-items: center;
+  gap: var(--space-1);
+  flex-shrink: 0;
+  padding: var(--space-2) var(--space-3);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  font-weight: 700;
+}
+
+.app-content {
+  flex: 1;
+  width: 100%;
+  max-width: 640px;
+  margin: 0 auto;
+  padding: var(--space-2) var(--space-4) calc(96px + var(--space-6));
+}
+
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  padding: var(--space-3) var(--space-4)
+    calc(var(--space-3) + env(safe-area-inset-bottom, 0px));
+  background: var(--card);
+  border-top: 1px solid var(--border);
+}
+
+.bottom-nav-items {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+  width: 100%;
+  max-width: 420px;
+}
+
+.bottom-nav-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-width: 44px;
+  min-height: 44px;
+  padding: var(--space-1) var(--space-2);
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.bottom-nav-item:disabled {
+  cursor: default;
+  opacity: 0.45;
+}
+
+.bottom-nav-item-active {
+  color: var(--foreground);
+}
+
+.bottom-nav-icon {
+  font-size: 1.1rem;
+  line-height: 1;
+}
+
+.bottom-nav-label {
+  font-size: 0.7rem;
+  font-weight: 600;
+}
+
+.bottom-nav-add {
+  position: relative;
+  top: -18px;
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--primary);
+  color: var(--foreground);
+  font-size: 1.75rem;
+  line-height: 1;
+  box-shadow: 0 8px 20px rgba(245, 188, 221, 0.55);
+  cursor: pointer;
+}
+
+.bottom-nav-add:disabled {
+  cursor: default;
+  opacity: 0.7;
+}
+
+@media (min-width: 1024px) {
+  .top-bar,
+  .app-content {
+    max-width: 720px;
+  }
 }
 
 /* Type scale — problemstatement.md §3. Mobile-first values, scaling up via
