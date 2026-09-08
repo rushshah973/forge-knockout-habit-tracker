@@ -1,11 +1,52 @@
 :root {
-  --accent: #2f6f4f;
-  --bg: #fafaf8;
-  --surface: #ffffff;
-  --border: #dddddd;
-  --text: #1a1a1a;
-  --text-muted: #666666;
+  /* Design tokens — see problemstatement.md §2, §3, §28 */
+
+  /* Color */
+  --background: #fffdf7;
+  --foreground: #111111;
+  --primary: #f5bcdd;
+  --pink: #f5bcdd;
+  --lavender: #dfd9f9;
+  --green: #b6c682;
+  --blue: #b9cbec;
+  --yellow: #f5d96e;
+  --muted: #6b6b64;
+  --border: #eae4d6;
+  --card: #ffffff;
   --danger: #b3261e;
+
+  /* Legacy aliases — existing component classes reference these; retarget
+     them at the new tokens so Stage 1 re-themes the whole app without
+     requiring every class to be rewritten yet (that happens in Stage 4). */
+  --accent: var(--primary);
+  --bg: var(--background);
+  --surface: var(--card);
+  --text: var(--foreground);
+  --text-muted: var(--muted);
+
+  /* Spacing scale (4/8/12/16/20/24/32/40/48) */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-7: 32px;
+  --space-8: 40px;
+  --space-9: 48px;
+
+  /* Radius scale */
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 20px;
+  --radius-xl: 24px;
+  --radius-2xl: 32px;
+  --radius-pill: 9999px;
+
+  /* Typography */
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "SF Pro Rounded", "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, sans-serif;
 }
 
 * {
@@ -14,11 +55,10 @@
 
 body {
   margin: 0;
-  background: var(--bg);
-  color: var(--text);
-  font-family:
-    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial,
-    sans-serif;
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
 }
 
 .app {
@@ -27,9 +67,46 @@ body {
   padding: 24px 16px 64px;
 }
 
-h1 {
-  font-size: 1.5rem;
+/* Type scale — problemstatement.md §3. Mobile-first values, scaling up via
+   clamp() so desktop doesn't need separate breakpoint rules yet. */
+.text-display {
+  font-size: clamp(2.5rem, 6vw, 3.5rem);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+h1,
+.text-h1 {
+  font-size: clamp(1.875rem, 4vw, 3rem);
+  font-weight: 700;
+  line-height: 1.15;
   margin: 0 0 20px;
+}
+
+h2,
+.text-h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+h3,
+.text-h3 {
+  font-size: clamp(1.125rem, 2vw, 1.375rem);
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.text-body {
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.text-caption {
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  color: var(--muted);
 }
 
 .add-habit-form {
