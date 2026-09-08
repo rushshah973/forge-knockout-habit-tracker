@@ -510,3 +510,79 @@ input:focus-visible {
   outline: 3px solid var(--accent);
   outline-offset: 2px;
 }
+
+/* Streak celebration — problemstatement.md §13 */
+
+@keyframes celebration-pop-in {
+  from {
+    opacity: 0;
+    transform: scale(0.85);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes celebration-flame-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+.celebration-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-5);
+  background: rgba(17, 17, 17, 0.55);
+  cursor: pointer;
+}
+
+.celebration-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-1);
+  width: 100%;
+  max-width: 320px;
+  padding: var(--space-8) var(--space-6);
+  background: linear-gradient(180deg, var(--yellow) 0%, var(--pink) 100%);
+  border-radius: var(--radius-2xl);
+  text-align: center;
+  box-shadow: 0 24px 48px rgba(17, 17, 17, 0.25);
+  animation: celebration-pop-in 0.3s ease;
+  cursor: default;
+}
+
+.celebration-flame {
+  font-size: 3rem;
+  line-height: 1;
+  animation: celebration-flame-pulse 1.1s ease-in-out infinite;
+}
+
+.celebration-count {
+  color: var(--foreground);
+  margin-top: var(--space-2);
+}
+
+.celebration-label {
+  font-size: 0.9rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  color: var(--foreground);
+}
+
+.celebration-message {
+  margin: var(--space-3) 0 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--foreground);
+}

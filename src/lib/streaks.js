@@ -1,5 +1,7 @@
 import { todayISO, addDaysISO } from "./dates.js";
 
+export const STREAK_MILESTONES = [7, 14, 21, 30, 50, 100];
+
 function dayNumber(iso) {
   const [year, month, day] = iso.split("-").map(Number);
   return Math.floor(Date.UTC(year, month - 1, day) / 86400000);

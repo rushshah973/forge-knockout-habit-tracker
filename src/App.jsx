@@ -2,16 +2,18 @@ import { useEffect, useState } from "react";
 import AppShell from "./components/AppShell.jsx";
 import AddHabitForm from "./components/AddHabitForm.jsx";
 import BottomSheet from "./components/BottomSheet.jsx";
+import CelebrationOverlay from "./components/CelebrationOverlay.jsx";
 import DateStrip from "./components/DateStrip.jsx";
 import HabitList from "./components/HabitList.jsx";
 import ProgressRing from "./components/ProgressRing.jsx";
 import { loadHabits, saveHabits } from "./lib/storage.js";
 import { todayISO } from "./lib/dates.js";
-import { computeStreaks } from "./lib/streaks.js";
+import { computeStreaks, STREAK_MILESTONES } from "./lib/streaks.js";
 
 export default function App() {
   const [habits, setHabits] = useState(() => loadHabits());
   const [isAddOpen, setIsAddOpen] = useState(false);
+  const [celebration, setCelebration] = useState(null);
 
   useEffect(() => {
     saveHabits(habits);
@@ -30,18 +32,26 @@ export default function App() {
 
   function handleToggleToday(habitId) {
     const today = todayISO();
+    const target = habits.find((h) => h.id === habitId);
+    if (!target) return;
+
+    const isDone = target.checkIns.includes(today);
+    const nextCheckIns = isDone
+      ? target.checkIns.filter((d) => d !== today)
+      : [...target.checkIns, today];
+
     setHabits((prev) =>
-      prev.map((habit) => {
-        if (habit.id !== habitId) return habit;
-        const isDone = habit.checkIns.includes(today);
-        return {
-          ...habit,
-          checkIns: isDone
-            ? habit.checkIns.filter((d) => d !== today)
-            : [...habit.checkIns, today],
-        };
-      }),
+      prev.map((habit) =>
+        habit.id === habitId ? { ...habit, checkIns: nextCheckIns } : habit,
+      ),
     );
+
+    if (!isDone) {
+      const { current } = computeStreaks(nextCheckIns);
+      if (STREAK_MILESTONES.includes(current)) {
+        setCelebration({ streak: current });
+      }
+    }
   }
 
   function handleDelete(habitId) {
@@ -91,6 +101,13 @@ export default function App() {
         <BottomSheet onClose={() => setIsAddOpen(false)}>
           <AddHabitForm onAddHabit={handleAddHabit} />
         </BottomSheet>
+      )}
+
+      {celebration && (
+        <CelebrationOverlay
+          streak={celebration.streak}
+          onClose={() => setCelebration(null)}
+        />
       )}
     </>
   );
