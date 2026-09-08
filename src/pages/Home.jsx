@@ -1,5 +1,6 @@
 import AppShell from "../components/AppShell.jsx";
 import TopBar from "../components/TopBar.jsx";
+import Challenges from "../components/Challenges.jsx";
 import DailyHighlights from "../components/DailyHighlights.jsx";
 import DateStrip from "../components/DateStrip.jsx";
 import HabitList from "../components/HabitList.jsx";
@@ -40,6 +41,8 @@ export default function Home({ habits, streak, onToggleToday, onDelete, onAddCli
       <HabitList habits={habits} onToggleToday={onToggleToday} onDelete={onDelete} />
 
       <DailyHighlights habits={habits} />
+
+      <Challenges habits={habits} />
     </AppShell>
   );
 }

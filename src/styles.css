@@ -954,3 +954,58 @@ input:focus-visible {
   font-weight: 800;
   color: var(--foreground);
 }
+
+/* Challenges — problemstatement.md §17. Solo/client-only for now (no
+   participants/avatars — that's the later social-accountability stretch). */
+
+.challenges {
+  margin-bottom: var(--space-5);
+}
+
+.challenges-title {
+  margin: 0 0 var(--space-3);
+}
+
+.challenges-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.challenge-card {
+  padding: var(--space-4);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+}
+
+.challenge-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-1);
+}
+
+.challenge-name {
+  font-weight: 700;
+}
+
+.challenge-day-label {
+  margin: 0 0 var(--space-2);
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+
+.challenge-bar-track {
+  height: 10px;
+  border-radius: var(--radius-pill);
+  background: var(--border);
+  overflow: hidden;
+}
+
+.challenge-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--green);
+  transition: width 0.4s ease;
+}
