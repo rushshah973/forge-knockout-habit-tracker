@@ -1,13 +1,7 @@
 import AppShell from "../components/AppShell.jsx";
 import TopBar from "../components/TopBar.jsx";
-import AIInsights from "../components/AIInsights.jsx";
-import Challenges from "../components/Challenges.jsx";
-import Crew from "../components/Crew.jsx";
-import DailyHighlights from "../components/DailyHighlights.jsx";
 import DateStrip from "../components/DateStrip.jsx";
-import Gamification from "../components/Gamification.jsx";
 import HabitList from "../components/HabitList.jsx";
-import MomentumCard from "../components/MomentumCard.jsx";
 import ProgressRing from "../components/ProgressRing.jsx";
 import { todayISO } from "../lib/dates.js";
 
@@ -39,24 +33,12 @@ export default function Home({ habits, streak, onToggleToday, onDelete, onAddCli
         </section>
       )}
 
-      <MomentumCard habits={habits} />
-
       <HabitList
         habits={habits}
         onToggleToday={onToggleToday}
         onDelete={onDelete}
         onAddClick={onAddClick}
       />
-
-      <DailyHighlights habits={habits} />
-
-      <Challenges habits={habits} />
-
-      <Crew habits={habits} />
-
-      <Gamification habits={habits} />
-
-      <AIInsights habits={habits} />
     </AppShell>
   );
 }

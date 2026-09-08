@@ -6,6 +6,10 @@ import CelebrationOverlay from "./components/CelebrationOverlay.jsx";
 import Onboarding from "./components/Onboarding.jsx";
 import Home from "./pages/Home.jsx";
 import HabitDetail from "./pages/HabitDetail.jsx";
+import ProgressPage from "./pages/Progress.jsx";
+import ChallengesPage from "./pages/ChallengesPage.jsx";
+import InsightsPage from "./pages/InsightsPage.jsx";
+import Profile from "./pages/Profile.jsx";
 import { hasOnboarded, loadHabits, markOnboarded, saveHabits } from "./lib/storage.js";
 import { todayISO } from "./lib/dates.js";
 import { getStreakInfo, STREAK_MILESTONES } from "./lib/streaks.js";
@@ -82,6 +86,10 @@ export default function App() {
       <Routes>
         <Route path="/" element={<Home streak={overallStreak} {...sharedProps} />} />
         <Route path="/habit/:id" element={<HabitDetail {...sharedProps} />} />
+        <Route path="/progress" element={<ProgressPage {...sharedProps} />} />
+        <Route path="/challenges" element={<ChallengesPage {...sharedProps} />} />
+        <Route path="/insights" element={<InsightsPage {...sharedProps} />} />
+        <Route path="/profile" element={<Profile {...sharedProps} />} />
       </Routes>
 
       {isAddOpen && (

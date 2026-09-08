@@ -6,7 +6,6 @@ export default function Challenges({ habits }) {
 
   return (
     <section className="challenges" aria-label="Challenges">
-      <h2 className="text-h3 challenges-title">Challenges</h2>
       <div className="challenges-list">
         {CHALLENGES.map((challenge) => (
           <ChallengeCard

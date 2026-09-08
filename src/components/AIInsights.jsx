@@ -7,7 +7,6 @@ export default function AIInsights({ habits }) {
 
   return (
     <section className="ai-insights" aria-label="Insights">
-      <h2 className="text-h3 ai-insights-title">Insights</h2>
       <div className="ai-insights-list">
         {insights.map((text, index) => (
           <div key={index} className="ai-insight-card">

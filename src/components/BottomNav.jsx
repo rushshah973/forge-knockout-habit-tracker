@@ -3,10 +3,10 @@ import { Link, useLocation } from "react-router-dom";
 const LEFT_ITEMS = [{ key: "home", label: "Home", icon: "🏠", enabled: true, to: "/" }];
 
 const RIGHT_ITEMS = [
-  { key: "progress", label: "Progress", icon: "📊", enabled: false },
-  { key: "challenges", label: "Challenges", icon: "🏆", enabled: false },
-  { key: "insights", label: "Insights", icon: "✨", enabled: false },
-  { key: "profile", label: "Profile", icon: "👤", enabled: false },
+  { key: "progress", label: "Progress", icon: "📊", enabled: true, to: "/progress" },
+  { key: "challenges", label: "Challenges", icon: "🏆", enabled: true, to: "/challenges" },
+  { key: "insights", label: "Insights", icon: "✨", enabled: true, to: "/insights" },
+  { key: "profile", label: "Profile", icon: "👤", enabled: true, to: "/profile" },
 ];
 
 function NavButton({ item }) {
