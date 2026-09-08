@@ -2,6 +2,7 @@ import AppShell from "../components/AppShell.jsx";
 import TopBar from "../components/TopBar.jsx";
 import AIInsights from "../components/AIInsights.jsx";
 import Challenges from "../components/Challenges.jsx";
+import Crew from "../components/Crew.jsx";
 import DailyHighlights from "../components/DailyHighlights.jsx";
 import DateStrip from "../components/DateStrip.jsx";
 import Gamification from "../components/Gamification.jsx";
@@ -45,6 +46,8 @@ export default function Home({ habits, streak, onToggleToday, onDelete, onAddCli
       <DailyHighlights habits={habits} />
 
       <Challenges habits={habits} />
+
+      <Crew habits={habits} />
 
       <Gamification habits={habits} />
 

@@ -19,3 +19,23 @@ export function saveHabits(habits) {
     // localStorage unavailable (e.g. private browsing) — app still works for this session
   }
 }
+
+const ONBOARDING_KEY = "habit-tracker:onboarded";
+
+export function hasOnboarded() {
+  try {
+    // Fail open — if storage is unavailable, don't block the Core behind
+    // an onboarding flow that can never be dismissed permanently.
+    return localStorage.getItem(ONBOARDING_KEY) === "true";
+  } catch {
+    return true;
+  }
+}
+
+export function markOnboarded() {
+  try {
+    localStorage.setItem(ONBOARDING_KEY, "true");
+  } catch {
+    // ignore — worst case onboarding reappears next visit
+  }
+}

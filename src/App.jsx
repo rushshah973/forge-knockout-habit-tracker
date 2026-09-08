@@ -3,9 +3,10 @@ import { Route, Routes } from "react-router-dom";
 import AddHabitForm from "./components/AddHabitForm.jsx";
 import BottomSheet from "./components/BottomSheet.jsx";
 import CelebrationOverlay from "./components/CelebrationOverlay.jsx";
+import Onboarding from "./components/Onboarding.jsx";
 import Home from "./pages/Home.jsx";
 import HabitDetail from "./pages/HabitDetail.jsx";
-import { loadHabits, saveHabits } from "./lib/storage.js";
+import { hasOnboarded, loadHabits, markOnboarded, saveHabits } from "./lib/storage.js";
 import { todayISO } from "./lib/dates.js";
 import { getStreakInfo, STREAK_MILESTONES } from "./lib/streaks.js";
 
@@ -13,6 +14,12 @@ export default function App() {
   const [habits, setHabits] = useState(() => loadHabits());
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [celebration, setCelebration] = useState(null);
+  const [showOnboarding, setShowOnboarding] = useState(() => !hasOnboarded());
+
+  function handleFinishOnboarding() {
+    markOnboarded();
+    setShowOnboarding(false);
+  }
 
   useEffect(() => {
     saveHabits(habits);
@@ -90,6 +97,8 @@ export default function App() {
           onClose={() => setCelebration(null)}
         />
       )}
+
+      {showOnboarding && <Onboarding onFinish={handleFinishOnboarding} />}
     </>
   );
 }
