@@ -1,6 +1,8 @@
 import { useNavigate, useParams } from "react-router-dom";
 import AppShell from "../components/AppShell.jsx";
+import CompletionTrend from "../components/CompletionTrend.jsx";
 import Heatmap from "../components/Heatmap.jsx";
+import StreakHistory from "../components/StreakHistory.jsx";
 import { getHabitColor, getHabitIcon } from "../lib/habitVisuals.js";
 import {
   computeConsistency,
@@ -42,6 +44,7 @@ export default function HabitDetail({ habits, onAddClick }) {
   const total = new Set(habit.checkIns).size;
   const color = getHabitColor(habit);
   const icon = getHabitIcon(habit);
+  const accentStyle = { "--habit-accent": `var(--${color})` };
 
   const thisWeekLabel =
     frequency.type === "weekly"
@@ -50,10 +53,7 @@ export default function HabitDetail({ habits, onAddClick }) {
 
   return (
     <AppShell header={header} onAddClick={onAddClick}>
-      <section
-        className="detail-hero"
-        style={{ "--habit-accent": `var(--${color})` }}
-      >
+      <section className="detail-hero" style={accentStyle}>
         <span className="detail-hero-icon" aria-hidden="true">
           {icon}
         </span>
@@ -81,6 +81,12 @@ export default function HabitDetail({ habits, onAddClick }) {
           <span className="text-caption">Total completions</span>
         </div>
       </div>
+
+      <div className="stats-card" style={accentStyle}>
+        <CompletionTrend checkIns={habit.checkIns} createdAt={habit.createdAt} />
+      </div>
+
+      {frequency.type === "daily" && <StreakHistory checkIns={habit.checkIns} />}
     </AppShell>
   );
 }

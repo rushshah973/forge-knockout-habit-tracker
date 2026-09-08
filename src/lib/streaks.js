@@ -168,6 +168,72 @@ export function computeConsistency(checkIns, createdAt, frequency = { type: "dai
 }
 
 /**
+ * Every completed run of consecutive days in the check-in history, most
+ * recent first — a timeline of past streaks, not just current/best.
+ * Single-day "runs" are filtered out as noise. Daily-habit oriented: for a
+ * weekly habit, consecutive calendar days aren't the meaningful unit, so
+ * this is only rendered for frequency.type === "daily".
+ */
+export function computeStreakHistory(checkIns) {
+  const uniqueDates = [...new Set(checkIns)].sort();
+  if (uniqueDates.length === 0) return [];
+
+  const runs = [];
+  let runStart = uniqueDates[0];
+  let prev = uniqueDates[0];
+
+  for (let i = 1; i < uniqueDates.length; i += 1) {
+    const current = uniqueDates[i];
+    if (dayNumber(current) !== dayNumber(prev) + 1) {
+      runs.push({ start: runStart, end: prev, length: dayNumber(prev) - dayNumber(runStart) + 1 });
+      runStart = current;
+    }
+    prev = current;
+  }
+  runs.push({ start: runStart, end: prev, length: dayNumber(prev) - dayNumber(runStart) + 1 });
+
+  return runs.filter((run) => run.length >= 2).reverse();
+}
+
+/**
+ * Daily completion rate (% of days checked) for a rolling window, plus the
+ * same window immediately before it for a trend comparison, plus a
+ * day-by-day 0/1 sparkline for the current window. Days before the habit
+ * existed are excluded from the rate so a new habit isn't penalized for
+ * not existing yet.
+ */
+export function computeCompletionTrend(checkIns, createdAt, windowDays = 14) {
+  const checkedSet = new Set(checkIns);
+  const today = todayISO();
+
+  function rateFor(startOffset, endOffset) {
+    let total = 0;
+    let count = 0;
+    for (let offset = startOffset; offset <= endOffset; offset += 1) {
+      const iso = addDaysISO(today, offset);
+      if (iso < createdAt) continue;
+      total += 1;
+      if (checkedSet.has(iso)) count += 1;
+    }
+    return total === 0 ? 0 : (count / total) * 100;
+  }
+
+  const currentRate = rateFor(-(windowDays - 1), 0);
+  const previousRate = rateFor(-(windowDays * 2 - 1), -windowDays);
+
+  const sparkline = [];
+  for (let offset = -(windowDays - 1); offset <= 0; offset += 1) {
+    sparkline.push(checkedSet.has(addDaysISO(today, offset)) ? 1 : 0);
+  }
+
+  return {
+    currentRate: Math.round(currentRate),
+    change: Math.round(currentRate - previousRate),
+    sparkline,
+  };
+}
+
+/**
  * True when a daily habit's streak just broke: it was on an active streak
  * through the day before yesterday, yesterday was missed, and today hasn't
  * been checked off yet either. Deliberately narrow — this flags the exact
