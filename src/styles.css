@@ -1009,3 +1009,110 @@ input:focus-visible {
   background: var(--green);
   transition: width 0.4s ease;
 }
+
+/* Gamification — problemstatement.md §19-§20 */
+
+.gamification {
+  margin-bottom: var(--space-5);
+}
+
+.level-card {
+  padding: var(--space-4);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  margin-bottom: var(--space-3);
+}
+
+.level-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+
+.level-badge {
+  font-weight: 800;
+  letter-spacing: 0.04em;
+}
+
+.level-title {
+  margin: 0 0 var(--space-2);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
+.level-bar-track {
+  height: 10px;
+  border-radius: var(--radius-pill);
+  background: var(--border);
+  overflow: hidden;
+}
+
+.level-bar-fill {
+  height: 100%;
+  border-radius: var(--radius-pill);
+  background: var(--blue);
+  transition: width 0.4s ease;
+}
+
+.achievements-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+
+.achievement-badge {
+  width: 48px;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  background: var(--border);
+  font-size: 1.3rem;
+  opacity: 0.4;
+  filter: grayscale(1);
+}
+
+.achievement-badge-unlocked {
+  background: var(--yellow);
+  opacity: 1;
+  filter: none;
+}
+
+/* AI insights — problemstatement.md §21-§22. Rule-based, no chatbot. */
+
+.ai-insights {
+  margin-bottom: var(--space-5);
+}
+
+.ai-insights-title {
+  margin: 0 0 var(--space-3);
+}
+
+.ai-insights-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.ai-insight-card {
+  padding: var(--space-4);
+  background: var(--lavender);
+  border-radius: var(--radius-xl);
+}
+
+.ai-insight-label {
+  display: block;
+  margin-bottom: var(--space-1);
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.ai-insight-text {
+  margin: 0;
+  font-weight: 600;
+}

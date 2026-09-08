@@ -1,8 +1,10 @@
 import AppShell from "../components/AppShell.jsx";
 import TopBar from "../components/TopBar.jsx";
+import AIInsights from "../components/AIInsights.jsx";
 import Challenges from "../components/Challenges.jsx";
 import DailyHighlights from "../components/DailyHighlights.jsx";
 import DateStrip from "../components/DateStrip.jsx";
+import Gamification from "../components/Gamification.jsx";
 import HabitList from "../components/HabitList.jsx";
 import MomentumCard from "../components/MomentumCard.jsx";
 import ProgressRing from "../components/ProgressRing.jsx";
@@ -43,6 +45,10 @@ export default function Home({ habits, streak, onToggleToday, onDelete, onAddCli
       <DailyHighlights habits={habits} />
 
       <Challenges habits={habits} />
+
+      <Gamification habits={habits} />
+
+      <AIInsights habits={habits} />
     </AppShell>
   );
 }
