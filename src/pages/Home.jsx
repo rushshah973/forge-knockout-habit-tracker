@@ -41,7 +41,12 @@ export default function Home({ habits, streak, onToggleToday, onDelete, onAddCli
 
       <MomentumCard habits={habits} />
 
-      <HabitList habits={habits} onToggleToday={onToggleToday} onDelete={onDelete} />
+      <HabitList
+        habits={habits}
+        onToggleToday={onToggleToday}
+        onDelete={onDelete}
+        onAddClick={onAddClick}
+      />
 
       <DailyHighlights habits={habits} />
 

@@ -30,7 +30,13 @@ export default function Gamification({ habits }) {
           </span>
         </div>
         <p className="level-title">{titleFor(level)}</p>
-        <div className="level-bar-track">
+        <div
+          className="level-bar-track"
+          role="progressbar"
+          aria-valuenow={xpIntoLevel}
+          aria-valuemin={0}
+          aria-valuemax={xpForNextLevel}
+        >
           <div className="level-bar-fill" style={{ width: `${percent}%` }} />
         </div>
       </div>

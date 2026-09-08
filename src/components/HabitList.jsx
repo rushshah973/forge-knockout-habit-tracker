@@ -1,8 +1,9 @@
+import EmptyState from "./EmptyState.jsx";
 import HabitCard from "./HabitCard.jsx";
 
-export default function HabitList({ habits, onToggleToday, onDelete }) {
+export default function HabitList({ habits, onToggleToday, onDelete, onAddClick }) {
   if (habits.length === 0) {
-    return <p className="empty-state">Add a habit to get started</p>;
+    return <EmptyState onAddClick={onAddClick} />;
   }
 
   return (

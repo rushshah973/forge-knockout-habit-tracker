@@ -12,7 +12,13 @@ export default function ChallengeCard({ name, day, length, reward }) {
       <p className="challenge-day-label">
         {complete ? "Complete! " : ""}Day {displayDay} / {length}
       </p>
-      <div className="challenge-bar-track">
+      <div
+        className="challenge-bar-track"
+        role="progressbar"
+        aria-valuenow={displayDay}
+        aria-valuemin={0}
+        aria-valuemax={length}
+      >
         <div className="challenge-bar-fill" style={{ width: `${percent}%` }} />
       </div>
     </div>
