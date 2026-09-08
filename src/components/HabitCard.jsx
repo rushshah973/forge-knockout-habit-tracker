@@ -1,11 +1,17 @@
 import { Link } from "react-router-dom";
 import { todayISO } from "../lib/dates.js";
-import { computeStreaks } from "../lib/streaks.js";
+import { countCurrentCalendarWeek, getStreakInfo } from "../lib/streaks.js";
 import StreakBadge from "./StreakBadge.jsx";
 
 export default function HabitCard({ habit, onToggleToday, onDelete }) {
   const done = habit.checkIns.includes(todayISO());
-  const { current } = computeStreaks(habit.checkIns);
+  const frequency = habit.frequency ?? { type: "daily" };
+  const { current, unit } = getStreakInfo(habit);
+
+  const frequencyLabel =
+    frequency.type === "weekly" ? `${frequency.target}x/week` : "Daily";
+  const weeklyProgress =
+    frequency.type === "weekly" ? countCurrentCalendarWeek(habit.checkIns) : null;
 
   return (
     <li className="habit-card">
@@ -32,8 +38,13 @@ export default function HabitCard({ habit, onToggleToday, onDelete }) {
           {habit.name}
         </span>
         <div className="habit-card-meta">
-          <span className="text-caption">Daily</span>
-          <StreakBadge count={current} />
+          <span className="text-caption">{frequencyLabel}</span>
+          {frequency.type === "weekly" && (
+            <span className="text-caption">
+              {weeklyProgress}/{frequency.target} this week
+            </span>
+          )}
+          <StreakBadge count={current} unit={unit} />
         </div>
       </Link>
 

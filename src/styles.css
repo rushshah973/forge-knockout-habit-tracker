@@ -411,6 +411,20 @@ h3,
   filter: brightness(1.05);
 }
 
+.add-habit-frequency-label {
+  margin-top: var(--space-3);
+}
+
+.add-habit-frequency {
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--text);
+  font-size: 1rem;
+}
+
 .empty-state {
   color: var(--text-muted);
   font-size: 0.95rem;

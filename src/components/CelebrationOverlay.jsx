@@ -1,5 +1,8 @@
 import { useEffect } from "react";
 
+// Written assuming a daily streak, so only used for unit === "day" — a
+// weekly habit's Nth-week milestone gets the generic fallback instead,
+// since "A full month." would misread for a 30-week streak.
 const MILESTONE_MESSAGES = {
   7: "One week strong.",
   14: "Two weeks in — it's sticking.",
@@ -11,11 +14,14 @@ const MILESTONE_MESSAGES = {
 
 const AUTO_DISMISS_MS = 3200;
 
-export default function CelebrationOverlay({ streak, onClose }) {
+export default function CelebrationOverlay({ streak, unit = "day", onClose }) {
   useEffect(() => {
     const timer = setTimeout(onClose, AUTO_DISMISS_MS);
     return () => clearTimeout(timer);
   }, [onClose]);
+
+  const message =
+    unit === "day" ? (MILESTONE_MESSAGES[streak] ?? "You're on fire.") : "You're on fire.";
 
   return (
     <div
@@ -29,10 +35,8 @@ export default function CelebrationOverlay({ streak, onClose }) {
           🔥
         </span>
         <span className="celebration-count text-display">{streak}</span>
-        <span className="celebration-label">DAY STREAK</span>
-        <p className="celebration-message">
-          {MILESTONE_MESSAGES[streak] ?? "You're on fire."}
-        </p>
+        <span className="celebration-label">{unit.toUpperCase()} STREAK</span>
+        <p className="celebration-message">{message}</p>
       </div>
     </div>
   );

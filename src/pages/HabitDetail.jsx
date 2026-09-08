@@ -2,9 +2,9 @@ import { useNavigate, useParams } from "react-router-dom";
 import AppShell from "../components/AppShell.jsx";
 import Heatmap from "../components/Heatmap.jsx";
 import { addDaysISO, todayISO } from "../lib/dates.js";
-import { computeConsistency, computeStreaks } from "../lib/streaks.js";
+import { computeConsistency, countCurrentCalendarWeek, getStreakInfo } from "../lib/streaks.js";
 
-function countThisWeek(checkIns) {
+function countLast7Days(checkIns) {
   const checkedSet = new Set(checkIns);
   const today = todayISO();
   let count = 0;
@@ -41,16 +41,22 @@ export default function HabitDetail({ habits, onAddClick }) {
     );
   }
 
-  const { current, best } = computeStreaks(habit.checkIns);
-  const consistency = computeConsistency(habit.checkIns, habit.createdAt);
-  const thisWeek = countThisWeek(habit.checkIns);
+  const frequency = habit.frequency ?? { type: "daily" };
+  const { current, best, unit } = getStreakInfo(habit);
+  const consistency = computeConsistency(habit.checkIns, habit.createdAt, frequency);
   const total = new Set(habit.checkIns).size;
+
+  const thisWeekLabel =
+    frequency.type === "weekly"
+      ? `${countCurrentCalendarWeek(habit.checkIns)}/${frequency.target}`
+      : `${countLast7Days(habit.checkIns)}/7`;
 
   return (
     <AppShell header={header} onAddClick={onAddClick}>
       <section className="detail-hero">
         <p className="detail-streak-line">
-          <span aria-hidden="true">🔥</span> {current} day streak
+          <span aria-hidden="true">🔥</span> {current} {unit}
+          {current === 1 ? "" : "s"} streak
         </p>
         <span className="detail-consistency text-display">{consistency}%</span>
         <span className="text-caption">Consistency</span>
@@ -60,9 +66,7 @@ export default function HabitDetail({ habits, onAddClick }) {
 
       <div className="detail-stats">
         <div className="detail-stat">
-          <span className="detail-stat-value">
-            {thisWeek}/7
-          </span>
+          <span className="detail-stat-value">{thisWeekLabel}</span>
           <span className="text-caption">This week</span>
         </div>
         <div className="detail-stat">

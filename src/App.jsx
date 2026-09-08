@@ -7,7 +7,7 @@ import Home from "./pages/Home.jsx";
 import HabitDetail from "./pages/HabitDetail.jsx";
 import { loadHabits, saveHabits } from "./lib/storage.js";
 import { todayISO } from "./lib/dates.js";
-import { computeStreaks, STREAK_MILESTONES } from "./lib/streaks.js";
+import { getStreakInfo, STREAK_MILESTONES } from "./lib/streaks.js";
 
 export default function App() {
   const [habits, setHabits] = useState(() => loadHabits());
@@ -18,12 +18,13 @@ export default function App() {
     saveHabits(habits);
   }, [habits]);
 
-  function handleAddHabit(name) {
+  function handleAddHabit(name, frequency) {
     const newHabit = {
       id: crypto.randomUUID(),
       name,
       createdAt: todayISO(),
       checkIns: [],
+      frequency: frequency ?? { type: "daily" },
     };
     setHabits((prev) => [...prev, newHabit]);
     setIsAddOpen(false);
@@ -46,9 +47,9 @@ export default function App() {
     );
 
     if (!isDone) {
-      const { current } = computeStreaks(nextCheckIns);
+      const { current, unit } = getStreakInfo({ ...target, checkIns: nextCheckIns });
       if (STREAK_MILESTONES.includes(current)) {
-        setCelebration({ streak: current });
+        setCelebration({ streak: current, unit });
       }
     }
   }
@@ -58,7 +59,7 @@ export default function App() {
   }
 
   const overallStreak = habits.reduce(
-    (max, h) => Math.max(max, computeStreaks(h.checkIns).current),
+    (max, h) => Math.max(max, getStreakInfo(h).current),
     0,
   );
 
@@ -85,6 +86,7 @@ export default function App() {
       {celebration && (
         <CelebrationOverlay
           streak={celebration.streak}
+          unit={celebration.unit}
           onClose={() => setCelebration(null)}
         />
       )}

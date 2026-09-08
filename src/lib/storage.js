@@ -3,7 +3,10 @@ const STORAGE_KEY = "habit-tracker:habits";
 export function loadHabits() {
   try {
     const raw = localStorage.getItem(STORAGE_KEY);
-    return raw ? JSON.parse(raw) : [];
+    const parsed = raw ? JSON.parse(raw) : [];
+    // Legacy habits saved before frequency existed get a "daily" default;
+    // spreading `habit` after the default means an existing frequency wins.
+    return parsed.map((habit) => ({ frequency: { type: "daily" }, ...habit }));
   } catch {
     return [];
   }
