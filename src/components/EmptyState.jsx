@@ -1,3 +1,5 @@
+import DemoDataButton from "./DemoDataButton.jsx";
+
 export default function EmptyState({ onAddClick }) {
   return (
     <div className="empty-state-card">
@@ -9,6 +11,7 @@ export default function EmptyState({ onAddClick }) {
       <button type="button" className="empty-state-cta" onClick={onAddClick}>
         + Create a habit
       </button>
+      <DemoDataButton />
     </div>
   );
 }

@@ -1,6 +1,7 @@
 import AppShell from "../components/AppShell.jsx";
 import PageHeader from "../components/PageHeader.jsx";
 import Crew from "../components/Crew.jsx";
+import DemoDataButton from "../components/DemoDataButton.jsx";
 import Gamification from "../components/Gamification.jsx";
 
 export default function Profile({ habits, onAddClick }) {
@@ -14,6 +15,7 @@ export default function Profile({ habits, onAddClick }) {
           <Crew habits={habits} />
         </>
       )}
+      <DemoDataButton />
     </AppShell>
   );
 }
