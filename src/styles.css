@@ -664,3 +664,87 @@ input:focus-visible {
   font-size: 1.5rem;
   font-weight: 800;
 }
+
+/* Heatmap — problemstatement.md §12 */
+
+.heatmap {
+  margin-bottom: var(--space-5);
+}
+
+.heatmap-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-3);
+}
+
+.heatmap-month-label {
+  font-weight: 700;
+}
+
+.heatmap-nav {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--card);
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.heatmap-nav:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.heatmap-weekdays {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  margin-bottom: var(--space-1);
+}
+
+.heatmap-weekday {
+  text-align: center;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+
+.heatmap-cell {
+  aspect-ratio: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+.heatmap-cell-blank {
+  visibility: hidden;
+}
+
+.heatmap-cell-done {
+  background: var(--primary);
+  color: var(--foreground);
+}
+
+.heatmap-cell-missed {
+  border: 1px solid var(--border);
+  color: var(--muted);
+}
+
+.heatmap-cell-future,
+.heatmap-cell-before-creation {
+  color: var(--border);
+}

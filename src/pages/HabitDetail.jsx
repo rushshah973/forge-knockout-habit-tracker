@@ -1,5 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import AppShell from "../components/AppShell.jsx";
+import Heatmap from "../components/Heatmap.jsx";
 import { addDaysISO, todayISO } from "../lib/dates.js";
 import { computeConsistency, computeStreaks } from "../lib/streaks.js";
 
@@ -54,6 +55,8 @@ export default function HabitDetail({ habits, onAddClick }) {
         <span className="detail-consistency text-display">{consistency}%</span>
         <span className="text-caption">Consistency</span>
       </section>
+
+      <Heatmap checkIns={habit.checkIns} createdAt={habit.createdAt} />
 
       <div className="detail-stats">
         <div className="detail-stat">
