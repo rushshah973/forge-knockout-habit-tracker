@@ -151,3 +151,21 @@ export function computeConsistency(checkIns, createdAt, frequency = { type: "dai
 
   return Math.round((completed / totalDays) * 100);
 }
+
+/**
+ * True when a daily habit's streak just broke: it was on an active streak
+ * through the day before yesterday, yesterday was missed, and today hasn't
+ * been checked off yet either. Deliberately narrow — this flags the exact
+ * "you just fell off" moment, not any long-abandoned habit.
+ */
+export function justBrokeStreak(checkIns) {
+  const checkedSet = new Set(checkIns);
+  const today = todayISO();
+  const yesterday = addDaysISO(today, -1);
+  const dayBeforeYesterday = addDaysISO(today, -2);
+  return (
+    !checkedSet.has(today) &&
+    !checkedSet.has(yesterday) &&
+    checkedSet.has(dayBeforeYesterday)
+  );
+}

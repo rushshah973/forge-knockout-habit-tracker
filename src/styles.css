@@ -441,12 +441,18 @@ h3,
 
 .habit-card {
   display: flex;
-  align-items: center;
-  gap: var(--space-3);
+  flex-direction: column;
+  gap: var(--space-2);
   background: var(--card);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: var(--space-3);
+}
+
+.habit-card-row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
 }
 
 .habit-check-control {
@@ -761,4 +767,40 @@ input:focus-visible {
 .heatmap-cell-future,
 .heatmap-cell-before-creation {
   color: var(--border);
+}
+
+/* Recovery card — problemstatement.md §14 */
+
+.recovery-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: var(--space-3);
+  background: var(--lavender);
+  border-radius: var(--radius-md);
+}
+
+.recovery-message {
+  margin: 0;
+  font-size: 0.85rem;
+  color: var(--foreground);
+}
+
+.recovery-prompt {
+  margin: 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.recovery-cta {
+  align-self: flex-start;
+  margin-top: var(--space-1);
+  padding: 6px var(--space-4);
+  border: none;
+  border-radius: var(--radius-pill);
+  background: var(--primary);
+  color: var(--foreground);
+  font-weight: 700;
+  font-size: 0.8rem;
+  cursor: pointer;
 }
