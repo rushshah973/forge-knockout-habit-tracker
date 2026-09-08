@@ -118,6 +118,21 @@ export function getStreakInfo(habit) {
   return { ...computeStreaks(habit.checkIns), unit: "day" };
 }
 
+/**
+ * Completions within [today+startOffset, today+endOffset] inclusive.
+ * Offsets are day deltas from today (negative = past), e.g. (-6, 0) is a
+ * rolling "last 7 days including today" window.
+ */
+export function countInRange(checkIns, startOffset, endOffset) {
+  const checkedSet = new Set(checkIns);
+  const today = todayISO();
+  let count = 0;
+  for (let offset = startOffset; offset <= endOffset; offset += 1) {
+    if (checkedSet.has(addDaysISO(today, offset))) count += 1;
+  }
+  return count;
+}
+
 /** Completions so far within the current Monday-start calendar week. */
 export function countCurrentCalendarWeek(checkIns) {
   const checkedSet = new Set(checkIns);

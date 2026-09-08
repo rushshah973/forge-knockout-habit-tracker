@@ -2,6 +2,7 @@ import AppShell from "../components/AppShell.jsx";
 import TopBar from "../components/TopBar.jsx";
 import DateStrip from "../components/DateStrip.jsx";
 import HabitList from "../components/HabitList.jsx";
+import MomentumCard from "../components/MomentumCard.jsx";
 import ProgressRing from "../components/ProgressRing.jsx";
 import { todayISO } from "../lib/dates.js";
 
@@ -32,6 +33,8 @@ export default function Home({ habits, streak, onToggleToday, onDelete, onAddCli
           </div>
         </section>
       )}
+
+      <MomentumCard habits={habits} />
 
       <HabitList habits={habits} onToggleToday={onToggleToday} onDelete={onDelete} />
     </AppShell>

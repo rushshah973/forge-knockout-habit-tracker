@@ -1,18 +1,12 @@
 import { useNavigate, useParams } from "react-router-dom";
 import AppShell from "../components/AppShell.jsx";
 import Heatmap from "../components/Heatmap.jsx";
-import { addDaysISO, todayISO } from "../lib/dates.js";
-import { computeConsistency, countCurrentCalendarWeek, getStreakInfo } from "../lib/streaks.js";
-
-function countLast7Days(checkIns) {
-  const checkedSet = new Set(checkIns);
-  const today = todayISO();
-  let count = 0;
-  for (let offset = -6; offset <= 0; offset += 1) {
-    if (checkedSet.has(addDaysISO(today, offset))) count += 1;
-  }
-  return count;
-}
+import {
+  computeConsistency,
+  countCurrentCalendarWeek,
+  countInRange,
+  getStreakInfo,
+} from "../lib/streaks.js";
 
 export default function HabitDetail({ habits, onAddClick }) {
   const { id } = useParams();
@@ -49,7 +43,7 @@ export default function HabitDetail({ habits, onAddClick }) {
   const thisWeekLabel =
     frequency.type === "weekly"
       ? `${countCurrentCalendarWeek(habit.checkIns)}/${frequency.target}`
-      : `${countLast7Days(habit.checkIns)}/7`;
+      : `${countInRange(habit.checkIns, -6, 0)}/7`;
 
   return (
     <AppShell header={header} onAddClick={onAddClick}>
