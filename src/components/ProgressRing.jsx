@@ -1,3 +1,5 @@
+import { useId } from "react";
+
 export default function ProgressRing({
   value,
   size = 96,
@@ -5,6 +7,7 @@ export default function ProgressRing({
   label,
   sublabel,
 }) {
+  const gradientId = useId();
   const radius = (size - strokeWidth) / 2;
   const circumference = 2 * Math.PI * radius;
   const clamped = Math.max(0, Math.min(100, value));
@@ -13,6 +16,12 @@ export default function ProgressRing({
   return (
     <div className="progress-ring" style={{ width: size, height: size }}>
       <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
+        <defs>
+          <linearGradient id={gradientId} x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="var(--yellow)" />
+            <stop offset="100%" stopColor="var(--primary)" />
+          </linearGradient>
+        </defs>
         <circle
           cx={size / 2}
           cy={size / 2}
@@ -26,7 +35,7 @@ export default function ProgressRing({
           cy={size / 2}
           r={radius}
           fill="none"
-          stroke="var(--primary)"
+          stroke={`url(#${gradientId})`}
           strokeWidth={strokeWidth}
           strokeLinecap="round"
           strokeDasharray={circumference}

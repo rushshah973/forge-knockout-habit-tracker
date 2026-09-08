@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import { Link } from "react-router-dom";
 import { todayISO } from "../lib/dates.js";
+import { getHabitColor, getHabitIcon } from "../lib/habitVisuals.js";
 import {
   computeConsistency,
   countCurrentCalendarWeek,
@@ -15,6 +16,8 @@ export default function HabitCard({ habit, onToggleToday, onDelete }) {
   const done = habit.checkIns.includes(todayISO());
   const frequency = habit.frequency ?? { type: "daily" };
   const { current, unit } = getStreakInfo(habit);
+  const color = getHabitColor(habit);
+  const icon = getHabitIcon(habit);
 
   const frequencyLabel =
     frequency.type === "weekly" ? `${frequency.target}x/week` : "Daily";
@@ -33,10 +36,9 @@ export default function HabitCard({ habit, onToggleToday, onDelete }) {
           ref={checkButtonRef}
           type="button"
           className={
-            done
-              ? "habit-check-control habit-check-control-done"
-              : "habit-check-control"
+            done ? "habit-check-control habit-check-control-done" : "habit-check-control"
           }
+          style={{ "--habit-accent": `var(--${color})` }}
           aria-pressed={done}
           aria-label={
             done
@@ -45,7 +47,7 @@ export default function HabitCard({ habit, onToggleToday, onDelete }) {
           }
           onClick={() => onToggleToday(habit.id)}
         >
-          {done && <span aria-hidden="true">✓</span>}
+          <span aria-hidden="true">{done ? "✓" : icon}</span>
         </button>
 
         <Link to={`/habit/${habit.id}`} className="habit-card-body">

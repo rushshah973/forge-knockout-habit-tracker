@@ -11,6 +11,12 @@ export default function Home({ habits, streak, onToggleToday, onDelete, onAddCli
   const totalCount = habits.length;
   const progressPercent =
     totalCount === 0 ? 0 : Math.round((completedCount / totalCount) * 100);
+  const progressTitle =
+    totalCount > 0 && completedCount === totalCount
+      ? "Perfect day! 🎉"
+      : completedCount > 0
+        ? "Nice progress!"
+        : "Today's Progress";
 
   return (
     <AppShell header={<TopBar streak={streak} />} onAddClick={onAddClick}>
@@ -24,7 +30,7 @@ export default function Home({ habits, streak, onToggleToday, onDelete, onAddCli
             sublabel="Today"
           />
           <div className="today-progress-copy">
-            <p className="text-h3 today-progress-title">Today's Progress</p>
+            <p className="text-h3 today-progress-title">{progressTitle}</p>
             <p className="text-caption">
               {completedCount} of {totalCount} habit
               {totalCount === 1 ? "" : "s"} completed

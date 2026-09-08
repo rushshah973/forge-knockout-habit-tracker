@@ -98,6 +98,15 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius-pill);
   font-weight: 700;
+  transition:
+    background 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.top-bar-streak-hot {
+  background: linear-gradient(135deg, var(--yellow), var(--pink));
+  border-color: transparent;
+  box-shadow: 0 4px 14px rgba(245, 217, 110, 0.5);
 }
 
 .app-content {
@@ -503,11 +512,11 @@ h3,
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--border);
+  border: 2px solid var(--habit-accent, var(--border));
   border-radius: var(--radius-pill);
-  background: transparent;
-  color: transparent;
-  font-size: 1.1rem;
+  background: var(--card);
+  color: var(--foreground);
+  font-size: 1.15rem;
   font-weight: 800;
   cursor: pointer;
   transition:
@@ -521,8 +530,8 @@ h3,
 }
 
 .habit-check-control-done {
-  border-color: var(--primary);
-  background: var(--primary);
+  border-color: var(--habit-accent, var(--primary));
+  background: var(--habit-accent, var(--primary));
   color: var(--foreground);
 }
 
@@ -665,6 +674,10 @@ a:focus-visible {
   cursor: default;
 }
 
+.celebration-card-perfect {
+  background: linear-gradient(180deg, var(--green) 0%, var(--blue) 100%);
+}
+
 .celebration-flame {
   font-size: 3rem;
   line-height: 1;
@@ -725,9 +738,19 @@ a:focus-visible {
   text-align: center;
   padding: var(--space-6) var(--space-4);
   margin-bottom: var(--space-5);
-  background: var(--card);
+  background: linear-gradient(
+    180deg,
+    color-mix(in srgb, var(--habit-accent, var(--primary)) 45%, var(--background)) 0%,
+    var(--background) 100%
+  );
   border: 1px solid var(--border);
   border-radius: var(--radius-xl);
+}
+
+.detail-hero-icon {
+  font-size: 2.25rem;
+  line-height: 1;
+  margin-bottom: var(--space-1);
 }
 
 .detail-streak-line {
@@ -833,7 +856,7 @@ a:focus-visible {
 }
 
 .heatmap-cell-done {
-  background: var(--primary);
+  background: var(--habit-accent, var(--primary));
   color: var(--foreground);
 }
 
@@ -1014,6 +1037,11 @@ a:focus-visible {
 
 .highlight-color-yellow {
   background: var(--yellow);
+}
+
+.highlight-icon {
+  font-size: 1.3rem;
+  line-height: 1;
 }
 
 .highlight-name {

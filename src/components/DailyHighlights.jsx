@@ -1,8 +1,7 @@
-import { todayISO } from "../lib/dates.js";
+import { getHabitColor, getHabitIcon } from "../lib/habitVisuals.js";
 import { countCurrentCalendarWeek, getStreakInfo } from "../lib/streaks.js";
 
 const SHAPES = ["circle", "blob-a", "pill", "blob-b", "star"];
-const COLORS = ["pink", "lavender", "green", "blue", "yellow"];
 
 export default function DailyHighlights({ habits }) {
   if (habits.length === 0) return null;
@@ -22,13 +21,17 @@ export default function DailyHighlights({ habits }) {
                 : "Not yet";
 
           const shape = SHAPES[index % SHAPES.length];
-          const color = COLORS[index % COLORS.length];
+          const color = getHabitColor(habit);
+          const icon = getHabitIcon(habit);
 
           return (
             <div
               key={habit.id}
               className={`highlight-shape highlight-shape-${shape} highlight-color-${color}`}
             >
+              <span className="highlight-icon" aria-hidden="true">
+                {icon}
+              </span>
               <span className="highlight-name">{habit.name}</span>
               <span className="highlight-stat">{stat}</span>
             </div>

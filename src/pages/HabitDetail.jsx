@@ -1,6 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import AppShell from "../components/AppShell.jsx";
 import Heatmap from "../components/Heatmap.jsx";
+import { getHabitColor, getHabitIcon } from "../lib/habitVisuals.js";
 import {
   computeConsistency,
   countCurrentCalendarWeek,
@@ -39,6 +40,8 @@ export default function HabitDetail({ habits, onAddClick }) {
   const { current, best, unit } = getStreakInfo(habit);
   const consistency = computeConsistency(habit.checkIns, habit.createdAt, frequency);
   const total = new Set(habit.checkIns).size;
+  const color = getHabitColor(habit);
+  const icon = getHabitIcon(habit);
 
   const thisWeekLabel =
     frequency.type === "weekly"
@@ -47,7 +50,13 @@ export default function HabitDetail({ habits, onAddClick }) {
 
   return (
     <AppShell header={header} onAddClick={onAddClick}>
-      <section className="detail-hero">
+      <section
+        className="detail-hero"
+        style={{ "--habit-accent": `var(--${color})` }}
+      >
+        <span className="detail-hero-icon" aria-hidden="true">
+          {icon}
+        </span>
         <p className="detail-streak-line">
           <span aria-hidden="true">🔥</span> {current} {unit}
           {current === 1 ? "" : "s"} streak
@@ -56,7 +65,7 @@ export default function HabitDetail({ habits, onAddClick }) {
         <span className="text-caption">Consistency</span>
       </section>
 
-      <Heatmap checkIns={habit.checkIns} createdAt={habit.createdAt} />
+      <Heatmap checkIns={habit.checkIns} createdAt={habit.createdAt} accentColor={color} />
 
       <div className="detail-stats">
         <div className="detail-stat">

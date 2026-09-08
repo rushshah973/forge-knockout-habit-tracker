@@ -4,6 +4,7 @@ import AddHabitForm from "./components/AddHabitForm.jsx";
 import BottomSheet from "./components/BottomSheet.jsx";
 import CelebrationOverlay from "./components/CelebrationOverlay.jsx";
 import Onboarding from "./components/Onboarding.jsx";
+import PerfectDayOverlay from "./components/PerfectDayOverlay.jsx";
 import Home from "./pages/Home.jsx";
 import HabitDetail from "./pages/HabitDetail.jsx";
 import ProgressPage from "./pages/Progress.jsx";
@@ -18,6 +19,7 @@ export default function App() {
   const [habits, setHabits] = useState(() => loadHabits());
   const [isAddOpen, setIsAddOpen] = useState(false);
   const [celebration, setCelebration] = useState(null);
+  const [showPerfectDay, setShowPerfectDay] = useState(false);
   const [showOnboarding, setShowOnboarding] = useState(() => !hasOnboarded());
 
   function handleFinishOnboarding() {
@@ -61,6 +63,11 @@ export default function App() {
       const { current, unit } = getStreakInfo({ ...target, checkIns: nextCheckIns });
       if (STREAK_MILESTONES.includes(current)) {
         setCelebration({ streak: current, unit });
+      } else if (
+        habits.length >= 2 &&
+        habits.every((h) => (h.id === habitId ? true : h.checkIns.includes(today)))
+      ) {
+        setShowPerfectDay(true);
       }
     }
   }
@@ -105,6 +112,8 @@ export default function App() {
           onClose={() => setCelebration(null)}
         />
       )}
+
+      {showPerfectDay && <PerfectDayOverlay onClose={() => setShowPerfectDay(false)} />}
 
       {showOnboarding && <Onboarding onFinish={handleFinishOnboarding} />}
     </>

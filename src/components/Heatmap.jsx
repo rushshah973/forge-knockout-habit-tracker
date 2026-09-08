@@ -34,7 +34,7 @@ function mondayFirstIndex(year, monthIndex, day) {
   return (jsDay + 6) % 7; // 0=Mon..6=Sun
 }
 
-export default function Heatmap({ checkIns, createdAt }) {
+export default function Heatmap({ checkIns, createdAt, accentColor }) {
   const today = todayISO();
   const [todayYear, todayMonth] = today.split("-").map(Number);
   const [viewYear, setViewYear] = useState(todayYear);
@@ -87,8 +87,10 @@ export default function Heatmap({ checkIns, createdAt }) {
     );
   }
 
+  const heatmapStyle = accentColor ? { "--habit-accent": `var(--${accentColor})` } : undefined;
+
   return (
-    <div className="heatmap">
+    <div className="heatmap" style={heatmapStyle}>
       <div className="heatmap-header">
         <button
           type="button"
