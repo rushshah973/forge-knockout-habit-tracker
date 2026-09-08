@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { todayISO } from "../lib/dates.js";
 import { computeStreaks } from "../lib/streaks.js";
 import StreakBadge from "./StreakBadge.jsx";
@@ -26,7 +27,7 @@ export default function HabitCard({ habit, onToggleToday, onDelete }) {
         {done && <span aria-hidden="true">✓</span>}
       </button>
 
-      <div className="habit-card-body">
+      <Link to={`/habit/${habit.id}`} className="habit-card-body">
         <span className={done ? "habit-name habit-name-done" : "habit-name"}>
           {habit.name}
         </span>
@@ -34,7 +35,7 @@ export default function HabitCard({ habit, onToggleToday, onDelete }) {
           <span className="text-caption">Daily</span>
           <StreakBadge count={current} />
         </div>
-      </div>
+      </Link>
 
       <button
         type="button"

@@ -1,4 +1,6 @@
-const LEFT_ITEMS = [{ key: "home", label: "Home", icon: "🏠", enabled: true }];
+import { Link, useLocation } from "react-router-dom";
+
+const LEFT_ITEMS = [{ key: "home", label: "Home", icon: "🏠", enabled: true, to: "/" }];
 
 const RIGHT_ITEMS = [
   { key: "progress", label: "Progress", icon: "📊", enabled: false },
@@ -8,17 +10,33 @@ const RIGHT_ITEMS = [
 ];
 
 function NavButton({ item }) {
+  const { pathname } = useLocation();
+
+  if (item.enabled && item.to) {
+    const isActive = pathname === item.to;
+    return (
+      <Link
+        to={item.to}
+        className={
+          isActive ? "bottom-nav-item bottom-nav-item-active" : "bottom-nav-item"
+        }
+        aria-current={isActive ? "page" : undefined}
+        title={item.label}
+      >
+        <span className="bottom-nav-icon" aria-hidden="true">
+          {item.icon}
+        </span>
+        <span className="bottom-nav-label">{item.label}</span>
+      </Link>
+    );
+  }
+
   return (
     <button
       type="button"
-      className={
-        item.key === "home"
-          ? "bottom-nav-item bottom-nav-item-active"
-          : "bottom-nav-item"
-      }
-      disabled={!item.enabled}
-      aria-current={item.key === "home" ? "page" : undefined}
-      title={item.enabled ? item.label : `${item.label} — coming soon`}
+      className="bottom-nav-item"
+      disabled
+      title={`${item.label} — coming soon`}
     >
       <span className="bottom-nav-icon" aria-hidden="true">
         {item.icon}

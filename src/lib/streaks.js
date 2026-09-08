@@ -48,3 +48,14 @@ export function computeStreaks(checkIns) {
 
   return { current, best };
 }
+
+/**
+ * Lifetime completion rate: unique completed days over days elapsed since
+ * the habit was created (inclusive of today).
+ */
+export function computeConsistency(checkIns, createdAt) {
+  const totalDays = dayNumber(todayISO()) - dayNumber(createdAt) + 1;
+  if (totalDays <= 0) return 0;
+  const completed = new Set(checkIns).size;
+  return Math.round((completed / totalDays) * 100);
+}

@@ -134,6 +134,7 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 2px;
   min-width: 44px;
   min-height: 44px;
@@ -142,6 +143,7 @@ body {
   background: transparent;
   color: var(--muted);
   border-radius: var(--radius-sm);
+  text-decoration: none;
   cursor: pointer;
 }
 
@@ -469,6 +471,9 @@ h3,
   display: flex;
   flex-direction: column;
   gap: 2px;
+  color: inherit;
+  text-decoration: none;
+  padding: var(--space-1) 0;
 }
 
 .habit-card-meta {
@@ -585,4 +590,77 @@ input:focus-visible {
   font-size: 1rem;
   font-weight: 600;
   color: var(--foreground);
+}
+
+/* Habit detail page — problemstatement.md §11 */
+
+.detail-header {
+  align-items: center;
+  justify-content: flex-start;
+  gap: var(--space-3);
+}
+
+.detail-back {
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-pill);
+  background: var(--card);
+  font-size: 1.1rem;
+  cursor: pointer;
+}
+
+.detail-title {
+  margin: 0;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.detail-hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  text-align: center;
+  padding: var(--space-6) var(--space-4);
+  margin-bottom: var(--space-5);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+}
+
+.detail-streak-line {
+  margin: 0 0 var(--space-2);
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.detail-consistency {
+  color: var(--foreground);
+}
+
+.detail-stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-3);
+}
+
+.detail-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  padding: var(--space-4) var(--space-2);
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  text-align: center;
+}
+
+.detail-stat-value {
+  font-size: 1.5rem;
+  font-weight: 800;
 }
